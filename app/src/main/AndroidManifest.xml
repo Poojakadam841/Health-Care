@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HealthCare">
         <activity
+            android:name=".ToDoList"
+            android:exported="false" />
+        <activity
+            android:name=".TaskSecond"
+            android:exported="false" />
+        <activity
             android:name=".TextOne"
             android:exported="false" />
         <activity
