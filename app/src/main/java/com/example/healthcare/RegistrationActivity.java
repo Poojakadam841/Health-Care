@@ -51,7 +51,12 @@ public class RegistrationActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+           
     }
+
+
+
 
     public void SetValidation() {
         // Check for a valid name.

@@ -37,7 +37,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 SetValidation();
             }
+
         });
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // redirect to RegisterActivity
+                Intent intent = new Intent(getApplicationContext(), MoodCircle.class);
+                startActivity(intent);
+            }
+        });
+
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
