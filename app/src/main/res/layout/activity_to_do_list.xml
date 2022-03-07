@@ -23,6 +23,7 @@
             android:textColor="@color/purple_500"
             android:hint="Enter your daily activity" />
 
+
         <ImageView
             android:id="@+id/add_text"
             android:layout_width="127dp"

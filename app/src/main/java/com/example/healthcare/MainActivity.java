@@ -1,95 +1,134 @@
 package com.example.healthcare;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Patterns;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.MenuItem;
+import android.widget.Toolbar;
 
-import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    EditText email, password;
-    Button login;
-    TextView register;
-    boolean isEmailValid, isPasswordValid;
-    TextInputLayout emailError, passError;
-
+    DrawerLayout drawerLayout;
+    NavigationView navigatinDrawerView;
+    androidx.appcompat.widget.Toolbar toolbar;
+    ActionBarDrawerToggle drawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        email = (EditText) findViewById(R.id.email);
-        password = (EditText) findViewById(R.id.password);
-        login = (Button) findViewById(R.id.login);
-        register = (TextView) findViewById(R.id.register);
-        emailError = (TextInputLayout) findViewById(R.id.emailError);
-        passError = (TextInputLayout) findViewById(R.id.passError);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigatinDrawerView = findViewById(R.id.nvView);
+        toolbar = findViewById(R.id.main_toolbar);
+        setSupportActionBar(toolbar);
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SetValidation();
-            }
+        // Setup drawer view
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+        setupDrawerContent();
 
-        });
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // redirect to RegisterActivity
-                Intent intent = new Intent(getApplicationContext(), MoodCircle.class);
-                startActivity(intent);
-            }
-        });
+        // Set a Toolbar to replace the ActionBar.
+//        toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
+        // This will display an Up icon (<-), we will replace it with hamburger later
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // redirect to RegisterActivity
-                Intent intent = new Intent(getApplicationContext(), RegistrationActivity.class);
-                startActivity(intent);
-            }
-        });
+        // Find our drawer view
     }
 
-    public void SetValidation() {
-        // Check for a valid email address.
-        if (email.getText().toString().isEmpty()) {
-            emailError.setError(getResources().getString(R.string.email_error));
-            isEmailValid = false;
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
-            emailError.setError(getResources().getString(R.string.error_invalid_email));
-            isEmailValid = false;
-        } else  {
-            isEmailValid = true;
-            emailError.setErrorEnabled(false);
+    private void setSupportActionBar(Toolbar toolbar) {
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // The action bar home/up action should open or close the drawer.
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                drawerLayout.openDrawer(GravityCompat.START);
+                return true;
         }
 
-        // Check for a valid password.
-        if (password.getText().toString().isEmpty()) {
-            passError.setError(getResources().getString(R.string.password_error));
-            isPasswordValid = false;
-        } else if (password.getText().length() < 6) {
-            passError.setError(getResources().getString(R.string.error_invalid_password));
-            isPasswordValid = false;
-        } else  {
-            isPasswordValid = true;
-            passError.setErrorEnabled(false);
-        }
+        return super.onOptionsItemSelected(item);
 
-        if (isEmailValid && isPasswordValid) {
-            Toast.makeText(getApplicationContext(), "Successfully", Toast.LENGTH_SHORT).show();
-        }
 
     }
 
+    private void setupDrawerContent() {
+        navigatinDrawerView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        selectDrawerItem(menuItem);
+                        return true;
+                    }
+                });
+    }
+
+    public void selectDrawerItem(MenuItem menuItem) {
+        // Create a new fragment and specify the fragment to show based on nav item clicked
+        Fragment fragment = null;
+        Class fragmentClass;
+        switch (menuItem.getItemId()) {
+            case R.id.nav_login:
+                fragmentClass = Login.class;
+                break;
+            case R.id.nav_moodcircle:
+                fragmentClass = MoodCircle.class;
+                break;
+            case R.id.nav_task1:
+                fragmentClass = Task.class;
+                break;
+            case R.id.nav_task2:
+                fragmentClass = TextOne.class;
+                break;
+            case R.id.nav_task3:
+                fragmentClass = TaskSecond.class;
+                break;
+            case R.id.nav_todo:
+                fragmentClass = ToDoList.class;
+                break;
+            case R.id.nav_therapist:
+                fragmentClass = WebView.class;
+                break;
+            case R.id.nav_logout:
+                fragmentClass = Login.class;
+                break;
+            default:
+                fragmentClass = MainActivity.class;
+        }
+
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+
+        // Highlight the selected item has been done by NavigationView
+        menuItem.setChecked(true);
+        // Set action bar title
+        setTitle(menuItem.getTitle());
+        // Close the navigation drawer
+        drawerLayout.closeDrawers();
+    }
 }
+
+
+
+
+
+
+
 
 
