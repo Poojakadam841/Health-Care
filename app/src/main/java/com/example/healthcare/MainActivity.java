@@ -1,21 +1,23 @@
 package com.example.healthcare;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
-    NavigationView navigatinDrawerView;
+    NavigationView navigationDrawerView;
     androidx.appcompat.widget.Toolbar toolbar;
     ActionBarDrawerToggle drawerToggle;
 
@@ -23,28 +25,63 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        drawerLayout = findViewById(R.id.drawer_layout);
-        navigatinDrawerView = findViewById(R.id.nvView);
-        toolbar = findViewById(R.id.main_toolbar);
-        setSupportActionBar(toolbar);
+        setId();
+        initialTask();
+        setDrawer();
 
-        // Setup drawer view
+        // TODO: 07-03-2022 Fragment container adapter
+
+        // On menu item click listener
+        navigationDrawerView.setNavigationItemSelectedListener(item -> {
+            onMenuItemSelectedByUser(item);
+            return true;
+        });
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    private void onMenuItemSelectedByUser(MenuItem item) {
+        // TODO: 07-03-2022 Other menu item listener
+        switch (item.getItemId()) {
+            case R.id.nav_logout: {
+                logout();
+            }
+            break;
+        }
+    }
+
+    private void logout() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Logout")
+                .setMessage("Are you sure that you want to logout?")
+                .setIcon(R.drawable.iconmonstr_logout)
+                .setPositiveButton("LOG OUT", (dialogInterface, i) -> {
+                    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                    if (firebaseUser != null) {
+                        // That means current user is logged in so now we can continue to log out
+                        FirebaseAuth.getInstance().signOut();
+                        startActivity(new Intent(MainActivity.this, Login.class)
+                                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                    }
+                })
+                .setNegativeButton("CANCEL", (dialogInterface, i) -> dialogInterface.dismiss())
+                .create()
+                .show();
+    }
+
+    private void setDrawer() {
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
-        setupDrawerContent();
-
-        // Set a Toolbar to replace the ActionBar.
-//        toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-
-        // This will display an Up icon (<-), we will replace it with hamburger later
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        // Find our drawer view
     }
 
-    private void setSupportActionBar(Toolbar toolbar) {
+    private void initialTask() {
+        setSupportActionBar(toolbar);
+    }
+
+    private void setId() {
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationDrawerView = findViewById(R.id.nvView);
+        toolbar = findViewById(R.id.main_toolbar);
     }
 
     @Override
@@ -55,72 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
-
-
-    }
-
-    private void setupDrawerContent() {
-        navigatinDrawerView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        selectDrawerItem(menuItem);
-                        return true;
-                    }
-                });
-    }
-
-    public void selectDrawerItem(MenuItem menuItem) {
-        // Create a new fragment and specify the fragment to show based on nav item clicked
-        Fragment fragment = null;
-        Class fragmentClass;
-        switch (menuItem.getItemId()) {
-            case R.id.nav_login:
-                fragmentClass = Login.class;
-                break;
-            case R.id.nav_moodcircle:
-                fragmentClass = MoodCircle.class;
-                break;
-            case R.id.nav_task1:
-                fragmentClass = Task.class;
-                break;
-            case R.id.nav_task2:
-                fragmentClass = TextOne.class;
-                break;
-            case R.id.nav_task3:
-                fragmentClass = TaskSecond.class;
-                break;
-            case R.id.nav_todo:
-                fragmentClass = ToDoList.class;
-                break;
-            case R.id.nav_therapist:
-                fragmentClass = WebView.class;
-                break;
-            case R.id.nav_logout:
-                fragmentClass = Login.class;
-                break;
-            default:
-                fragmentClass = MainActivity.class;
-        }
-
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-
-        // Highlight the selected item has been done by NavigationView
-        menuItem.setChecked(true);
-        // Set action bar title
-        setTitle(menuItem.getTitle());
-        // Close the navigation drawer
-        drawerLayout.closeDrawers();
     }
 }
 

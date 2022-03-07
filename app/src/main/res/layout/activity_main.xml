@@ -28,15 +28,17 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/main_toolbar"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/nvView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="@android:color/white"
-            app:menu="@menu/drawer_view" />
     </RelativeLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nvView"
+        app:headerLayout="@layout/nav_header"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@android:color/white"
+        app:menu="@menu/drawer_view" />
+
 </androidx.drawerlayout.widget.DrawerLayout>
 
 
