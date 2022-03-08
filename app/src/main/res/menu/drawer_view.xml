@@ -1,30 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_login"
-            android:title="login" />
-        <item
-            android:id="@+id/nav_moodcircle"
-            android:title="Mood Circle" />
-        <item
-            android:id="@+id/nav_task1"
-            android:title="task 1-10" />
-        <item
-            android:id="@+id/nav_task2"
-            android:title="task 11-20" />
-        <item
-            android:id="@+id/nav_task3"
-            android:title="task 21-30" />
-        <item
-            android:id="@+id/nav_todo"
-            android:title="TO DO List" />
-        <item
-            android:id="@+id/nav_therapist"
-            android:title="Therapist near me" />
-        <item
-            android:id="@+id/nav_logout"
-            android:title="logout" />
-    </group>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
 
+    <item
+        android:title="Task"
+        tools:ignore="HardcodedText">
+
+        <menu>
+            <item
+                android:id="@+id/nav_task1"
+                android:title="task 1-10"
+                tools:ignore="HardcodedText" />
+            <item
+                android:id="@+id/nav_task2"
+                android:title="task 11-20"
+                tools:ignore="HardcodedText" />
+            <item
+                android:id="@+id/nav_task3"
+                android:title="task 21-30"
+                tools:ignore="HardcodedText" />
+        </menu>
+    </item>
+
+    <item
+        android:title="Mood"
+        tools:ignore="HardcodedText">
+        <menu>
+            <item
+                android:id="@+id/nav_moodcircle"
+                android:title="Mood Circle"
+                tools:ignore="HardcodedText" />
+
+            <item
+                android:id="@+id/nav_todo"
+                android:title="TO DO List"
+                tools:ignore="HardcodedText" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/nav_therapist"
+        android:title="Therapist near me"
+        tools:ignore="HardcodedText" />
+
+    <item
+        android:title="App"
+        tools:ignore="HardcodedText">
+
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:title="logout"
+                tools:ignore="HardcodedText" />
+
+            <item
+                android:id="@+id/app_info_drawer_menu_item"
+                android:title="App Info"
+                tools:ignore="HardcodedText" />
+        </menu>
+    </item>
 </menu>
