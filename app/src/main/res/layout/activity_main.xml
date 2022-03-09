@@ -9,16 +9,19 @@
     tools:context=".MainActivity"
     tools:openDrawer="start">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/main_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?android:attr/colorPrimary"
-            app:title="Title"
+            app:title="Health Care"
             app:titleTextColor="#FFFFFF" />
 
         <!-- The main content view where fragments are loaded -->
@@ -28,7 +31,10 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/main_toolbar"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
     </RelativeLayout>
+
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nvView"
@@ -38,6 +44,8 @@
         android:layout_gravity="start"
         android:background="@android:color/white"
         app:menu="@menu/drawer_view" />
+
+
 
 </androidx.drawerlayout.widget.DrawerLayout>
 

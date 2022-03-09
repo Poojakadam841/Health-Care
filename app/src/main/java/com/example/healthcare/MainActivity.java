@@ -44,6 +44,41 @@ public class MainActivity extends AppCompatActivity {
                 logout();
             }
             break;
+            case R.id.nav_task1: {
+                Intent intent =  new Intent(this, Task.class);
+                startActivity(intent);
+            }
+            break;
+            case R.id.nav_task2: {
+                Intent intent =  new Intent(this, TextOne.class);
+                startActivity(intent);
+            }
+            break;
+            case R.id.nav_task3: {
+                Intent intent =  new Intent(this, TaskSecond.class);
+                startActivity(intent);
+            }
+            break;
+            case R.id.nav_moodcircle: {
+                Intent intent =  new Intent(this, MoodCircle.class);
+                startActivity(intent);
+            }
+            break;
+            case R.id.nav_todo: {
+                Intent intent =  new Intent(this, ToDoList.class);
+                startActivity(intent);
+            }
+            break;
+            case R.id.nav_therapist: {
+                Intent intent =  new Intent(this, WebView.class);
+                startActivity(intent);
+            }
+            break;
+            //case R.id.app_info_drawer_menu_item: {
+               // Intent intent =  new Intent(this, MainActivity.class);
+                //startActivity(intent);
+          //  }
+          //  break;
         }
     }
 

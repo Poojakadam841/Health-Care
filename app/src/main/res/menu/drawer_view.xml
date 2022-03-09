@@ -11,14 +11,17 @@
             <item
                 android:id="@+id/nav_task1"
                 android:title="task 1-10"
+                android:icon="@drawable/ic_baseline_task_24"
                 tools:ignore="HardcodedText" />
             <item
                 android:id="@+id/nav_task2"
                 android:title="task 11-20"
+                android:icon="@drawable/ic_baseline_task_24"
                 tools:ignore="HardcodedText" />
             <item
                 android:id="@+id/nav_task3"
                 android:title="task 21-30"
+                android:icon="@drawable/ic_baseline_task_24"
                 tools:ignore="HardcodedText" />
         </menu>
     </item>
@@ -30,11 +33,13 @@
             <item
                 android:id="@+id/nav_moodcircle"
                 android:title="Mood Circle"
+                android:icon="@drawable/ic_baseline_light_mode_24"
                 tools:ignore="HardcodedText" />
 
             <item
                 android:id="@+id/nav_todo"
                 android:title="TO DO List"
+                android:icon="@drawable/ic_baseline_list_alt_24"
                 tools:ignore="HardcodedText" />
         </menu>
     </item>
@@ -42,6 +47,7 @@
     <item
         android:id="@+id/nav_therapist"
         android:title="Therapist near me"
+        android:icon="@drawable/ic_baseline_psychology_24"
         tools:ignore="HardcodedText" />
 
     <item
@@ -52,11 +58,13 @@
             <item
                 android:id="@+id/nav_logout"
                 android:title="logout"
+                android:icon="@drawable/ic_baseline_logout_24"
                 tools:ignore="HardcodedText" />
 
             <item
                 android:id="@+id/app_info_drawer_menu_item"
                 android:title="App Info"
+                android:icon="@drawable/ic_baseline_info_24"
                 tools:ignore="HardcodedText" />
         </menu>
     </item>
