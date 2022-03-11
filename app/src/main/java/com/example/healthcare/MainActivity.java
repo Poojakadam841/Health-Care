@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     NavigationView navigationDrawerView;
     androidx.appcompat.widget.Toolbar toolbar;
     private ActionBarDrawerToggle drawerToggle;
+    Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setId();
         initialTask();
         setDrawer();
+        button = (Button) findViewById(R.id.start);
 
         // TODO: 07-03-2022 Fragment container adapter
 
@@ -33,6 +37,14 @@ public class MainActivity extends AppCompatActivity {
         navigationDrawerView.setNavigationItemSelectedListener(item -> {
             onMenuItemSelectedByUser(item);
             return true;
+        });
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // redirect to RegisterActivity
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+            }
         });
     }
 
@@ -45,40 +57,40 @@ public class MainActivity extends AppCompatActivity {
             }
             break;
             case R.id.nav_task1: {
-                Intent intent =  new Intent(this, Task.class);
+                Intent intent = new Intent(this, Task.class);
                 startActivity(intent);
             }
             break;
             case R.id.nav_task2: {
-                Intent intent =  new Intent(this, TextOne.class);
+                Intent intent = new Intent(this, TextOne.class);
                 startActivity(intent);
             }
             break;
             case R.id.nav_task3: {
-                Intent intent =  new Intent(this, TaskSecond.class);
+                Intent intent = new Intent(this, TaskSecond.class);
                 startActivity(intent);
             }
             break;
             case R.id.nav_moodcircle: {
-                Intent intent =  new Intent(this, MoodCircle.class);
+                Intent intent = new Intent(this, MoodCircle.class);
                 startActivity(intent);
             }
             break;
             case R.id.nav_todo: {
-                Intent intent =  new Intent(this, ToDoList.class);
+                Intent intent = new Intent(this, ToDoList.class);
                 startActivity(intent);
             }
             break;
             case R.id.nav_therapist: {
-                Intent intent =  new Intent(this, WebView.class);
+                Intent intent = new Intent(this, WebView.class);
                 startActivity(intent);
             }
             break;
             //case R.id.app_info_drawer_menu_item: {
-               // Intent intent =  new Intent(this, MainActivity.class);
-                //startActivity(intent);
-          //  }
-          //  break;
+            // Intent intent =  new Intent(this, MainActivity.class);
+            //startActivity(intent);
+            //  }
+            //  break;
         }
     }
 
@@ -128,6 +140,10 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
+
+
+
+
 
 
 
