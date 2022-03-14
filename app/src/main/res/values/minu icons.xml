@@ -15,4 +15,5 @@
         <item>@android:color/holo_purple</item>
         <item>@android:color/holo_orange_light</item>
     </array>
+
 </resources>
