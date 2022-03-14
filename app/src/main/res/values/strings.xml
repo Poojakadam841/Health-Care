@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Health Care</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
     <string name="login">Login</string>
     <string name="create_new">Click here for register</string>
     <string name="not_register">alreday how account</string>
